@@ -1,11 +1,22 @@
 // including express
 const express = require('express');
-
+const mongoose = require('mongoose');
+const bodyParser = require("body-parser")
 const app = new express();
 
 //including edge template engine
 // const expressEdge = require('express-edge');
 // const { config, engine } = require('express-edge');
+
+const uri = 'mongodb+srv://fahimahmed38:fahim12345@clusterstudentcouncil.bvdc3.mongodb.net/maindb?retryWrites=true&w=majority';
+mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => {
+    console.log('MongoDB Connected…')
+})
+.catch(err => console.log(err))
 
 //including path
 const path = require('path');
@@ -14,11 +25,15 @@ const path = require('path');
 var about = require('./routes/about');
 var assesment = require('./routes/online_assesment');
 var program = require('./routes/program');
+var user = require('./routes/userRoute');
+
+app.use(bodyParser.json());
 
 //setting up routes to handle requests
 app.use('/about', about);
 app.use('/assesment', assesment);
 app.use('/program', program);
+app.use('',user);
 
 //setting up view engine
 app.set('view engine', 'ejs');

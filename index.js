@@ -10,6 +10,16 @@ const app = new express();
 //including path
 const path = require('path');
 
+//including routes
+var about = require('./routes/about');
+var assesment = require('./routes/online_assesment');
+var program = require('./routes/program');
+
+//setting up routes to handle requests
+app.use('/about', about);
+app.use('/assesment', assesment);
+app.use('/program', program);
+
 //setting up view engine
 app.set('view engine', 'ejs');
 
@@ -49,18 +59,17 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
-app.get('/about', (req, res) => {
-    res.render('about');
+app.get('/fee-structure', (req, res) => {
+    res.render('fee-structure');
 });
 
-app.get('/post', (req, res) => {
-    res.render('post');
+app.get('/current-vacancies', (req, res) => {
+    res.render('current-vacancies');
 });
 
 app.get('/contact', (req, res) => {
     res.render('contact');
 });
-
 
 //setting up listening port
 const PORT = process.env.PORT || 8080;
